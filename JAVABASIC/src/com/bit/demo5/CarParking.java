@@ -20,8 +20,39 @@ public class CarParking {
 		space = new Car[length];
 	}
 
-	public void insert(String id, Date in, Date out, double a) {
+	
+	
+	
+	public Car getCarByNo (String carNo) {
+		for (Car car : space) {
+			if(car != null) {
+				if(car.getId().equals(carNo)) {
+					return car;
+				}
+			
+			}
+		}
 		
+		return null;
+	}
+	
+	
+	
+	
+	
+	public void insert(String carNo, Date in, double price) {
+		Car car = new Car();
+		car.setId(carNo);
+		car.setIn(in);
+		car.setOut(null);
+		car.setPrice(price);
+		//주차하기
+		int i = isEmpty();
+		if(i >= 0) {			
+			space[i] = car;
+		}
+		
+		/*
 		Car car = new Car();
 		car.setId(id);
 		car.setIn(in);
@@ -30,11 +61,21 @@ public class CarParking {
 		space[idx] = car;
 		idx++;
 		System.out.println(space[0]);
-		
+		*/
+	}
+	//저작권 !
+	public int isEmpty() {
+		for (int i=0;i<space.length;i++) {
+			if(space[i] == null) { //배열 요소가 객체이므로 null
+				return i;
+			}
+		}
+		return -1;
 	}
 	
+	
 	public void getCar(String num) {
-		Car t = space;
+		
 			
 		
 	}
@@ -43,9 +84,8 @@ public class CarParking {
 	public String getState() {
 		return this.toString();
 	}
-	
+
 	@Override
-	
 	public String toString() {
 		// space 배열 변환하기 -> 화면상에 [][][][][][][]
 		String s = "";
@@ -56,7 +96,7 @@ public class CarParking {
 				
 				s += "[" +car.getId()+"]";
 			}else {
-				s += "[     ]";
+				s += "[    ]";
 			}
 
 			if(count == space.length /2) {
@@ -64,6 +104,26 @@ public class CarParking {
 			}
 		}
 		return s;
+	}
+
+
+
+
+	public void removeCar(Car car) {
+		int del = 1;
+		for (int i=0;i<space.length;i++) {
+			if(space[i] == car) {
+				del = i;
+				break;
+				
+			}
+		}
+		if (del>= 0) {
+			space[del] = null;
+		}
+		
+		space[del] = null;
+		
 	}
 	
 	

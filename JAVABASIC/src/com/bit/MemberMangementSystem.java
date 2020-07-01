@@ -8,6 +8,7 @@
 
 
 package com.bit;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Scanner;
 import com.bit.demo5.MemberService;
@@ -24,9 +25,63 @@ public class MemberMangementSystem {
 	// 메인 함수 호출
 	public static void main(String[] args) {
 //		mgrMember();
-		parking();
+//		parking();
+//		moreString();
+		moreString01();
 	}
 	
+	static void moreString01(){
+		String qs = "https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=%EB%B8%94%EB%9E%99%ED%95%91%ED%81%AC+%EC%BB%B4%EB%B0%B1&oquery=url&tqi=UYrUTwprvmsssc%2ByUNRssssst74-447183";
+		//쪼개기 뭘 실실 쪼개 ㅋㅋ 쪼개기 출력 스플릿 쓸꺼얌
+		
+		
+
+		int seq = qs.indexOf("?");
+		String sub = qs.substring(0,seq);
+		String sub1 = qs.substring(seq);
+		System.out.println(sub1);
+		String[] url = qs.split("\\?");
+
+		String queryString = url[1];
+		System.out.println(queryString);
+		String[] vars = queryString.split("&");
+		System.out.println(vars.length);
+		String[] var = vars[0].split("=");
+		System.out.println(var[0]);
+		System.out.println(var[1]);
+		
+		
+	}
+	
+	
+	
+	
+	
+	static void moreString() {
+		String a = "jangs" ;
+		//System.out.println(a);
+		//System.out.println(a.length()); // 고정길이 x 가변길이o 
+		//System.out.println(a.hashCode()); // 
+		
+		String b = "Korean";
+		long start = System.nanoTime();//System.currentTimeMillis(); // 컴퓨터의 시간값
+		//문자열 합치기 -> 스ㅡ트링 빌더
+		StringBuilder builder = new StringBuilder();
+		StringBuffer buffer = new StringBuffer();
+		//builder.append(a);
+		buffer.append(a);
+		for (int i =0;i <100 ; i++) {
+			//builder.append(b);
+			buffer.append(b);
+			//a += b;
+			// a = a.concat(b);
+//			System.out.println(builder.toString());
+		}
+		long end = System.nanoTime();//System.currentTimeMillis();
+
+		System.out.println(end - start);
+		
+	}	
 	
 	
 	public static void parking() {
@@ -46,20 +101,46 @@ public class MemberMangementSystem {
 			
 			
 			if (usernum == 1) {
+				System.out.println("차들어온당 !");
+				if (service.isEmpty() == -1) {
+					System.out.println("만차");
+				}else {
+				
+					String carNo = sc.nextLine();				
+					Date in = new Date();
+					double price =10000;
+					//Car car = new Car();
+					service.insert(carNo, in, price);
+				}
+				
+				/*
 				String inputid = sc.nextLine();
 				Date intime = new Date();
 				Date outtime = new Date();
 				Car car = new Car();
 				service.insert(inputid, intime , outtime , 5000);
-				
+				*/
 			}
 			
 			if (usernum == 2) {
-				System.out.println("차량 번호 >");
-				String carnum =  sc.nextLine();
+				System.out.println("차 나간다. No >");
+				String carNo = sc.nextLine();
+				Car car = service.getCarByNo(carNo); //시간정보없이 차가 나가는 것만 계산
+				if (car == null) {
+					System.out.println("차량 없음.");
+				}else {
+					LocalDateTime out = LocalDateTime.now();
+					car.setOut(out);
+					double price = car.calculatePrice();
+					System.out.println("금액 : " + price);
+					service.removeCar(car); // 참조비교
+				}
 				
-				service.getCar(carnum);
 				
+				
+				//System.out.println("차량 번호 >");
+				//String carnum =  sc.nextLine();				
+				//service.getCar(carnum);				
 				//Car car = service.getCar();
 				//car.getPrice();
 				//service.removeCar();
