@@ -56,7 +56,9 @@ public class Movie {
 	private LocalDateTime playdate; //개봉일
 	private String genr; //  장르
 	private String[] actor;// 배우
-	private String director ; // 디렉터
+	//private int actorId;
+	private String director ;
+	//private int directorId ;// 디렉터
 	private int rank; // 랭크
 	public long getId() {
 		return id;

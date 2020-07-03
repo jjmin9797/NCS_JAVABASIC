@@ -6,5 +6,7 @@ public interface Repository {
 	Movie findOneById(long id);
 	void update(Movie movie);
 	void remove(long id);
-
+	String[] findMovie(String name);
+	public String[] findActor(String Movie);
 }
+

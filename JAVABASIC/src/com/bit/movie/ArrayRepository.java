@@ -86,4 +86,37 @@ public class ArrayRepository implements Repository{
 		
 	}
 	
+	public String[] findMovie(String name) {
+		String[] lists = new String[5];
+		int count = 0;
+		for (int i=0;i<repo.length;i++) {
+			if (repo[i] != null) {
+				if (repo[i].getActor().equals(name)) {
+					lists[count] = repo[i].getTitle();
+					count ++;
+				}
+			}		
+		}
+		return lists;
+		
+	}
+	
+	
+	public String[] findActor(String Movie) {
+		String[] lists = new String[5];
+		for (int i = 0; i< repo.length;i++) {
+			if(repo[i] != null) {
+				if (repo[i].getTitle().equals(Movie)) {
+					lists = repo[i].getActor();
+				}
+			}
+		}
+		
+		return lists;
+	}
+	
+	
+	
+	
+	
 }
